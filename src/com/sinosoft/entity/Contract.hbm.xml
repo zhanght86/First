@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.sinosoft.entity.Contract" table="Contract">
+    <id name="id" type="int">
+            <column name="id" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="contractId" type="string">
+            <column name="contractId" length="20" />
+        </property>
+        <property name="contractName" type="string">
+            <column name="contractName" length="20" />
+        </property>
+        <property name="applyNo" type="string">
+            <column name="applyNo" length="20" />
+        </property>
+        <property name="remark" type="string">
+            <column name="remark" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

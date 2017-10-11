@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--weblogic JNDI数据源用如下配置
+	<bean id="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="resourceRef">
+			<value>true</value>
+		</property>
+		<property name="jndiEnvironment">
+			<props>
+				<prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop> 
+				<prop key="java.naming.provider.url">t3://127.0.0.1:7001</prop>
+			</props>
+		</property>
+		<property name="jndiName">
+			<value>CFNL2DataSource</value>
+		</property>
+	</bean>
+    -->
+    
+    <!--普通JDBC方式用如下配置-->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="url" value="${jdbcUrl}"></property>
+		<property name="username" value="${user1}"></property>
+		<property name="password" value="${password1}"></property>
+		<property name="driverClassName" value="${driverClass}"></property>
+    </bean>
+   <!--  <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="url" value="jdbc:sap://192.168.70.188:39013/?databaseName=hxe"></property>
+		<property name="username" value="system"></property>
+		<property name="password" value="Sin0soft"></property>
+		<property name="driverClassName" value="com.sap.db.jdbc.Driver"></property>
+    </bean> -->
+
+
+    <!-- <bean id="dataSource4activities" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="url" value="jdbc:mysql://localhost:3306/hana"></property>
+		<property name="username" value="sinosoft"></property>
+		<property name="password" value="sinosoft"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    </bean> -->
+    
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <!-- 指定hibernate的配置文件位置 -->
+		<property name="configLocation" value="classpath:db/hibernate.cfg.xml"></property>
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+    
+    <!-- 配置声明式事务管理（采用注解的方式） -->
+	<bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<!--jdbcTemplate配置-->
+	<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<!--hibernateTemplate配置-->
+	<bean class="org.springframework.orm.hibernate5.HibernateTemplate" id="hibernateTemplate">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	<!--Dao配置-->
+	<bean class="com.sinosoft.common.BaseDAO" id="dao">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<!-- <bean id="dao" class="com.sinosoft.common.BaseDAO">
+		<property name="sessionFactory" ref="mySessionFactory" />
+		<property name="dataSource" ref="myDataSource" />
+	</bean> -->
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="timeout" value="300" />
+		<property name="transactionManager" ref="txManager" />
+	</bean>
+	<!-- freemarker的配置 -->  
+    <bean id="freeMarkerConfig"  
+        class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+        <property name="templateLoaderPath" value="/WEB-INF/template/" />  
+        <property name="defaultEncoding" value="UTF-8" />  
+        <property name="freemarkerSettings">  
+            <props>  
+                <prop key="template_update_delay">10</prop>  
+                <prop key="locale">zh_CN</prop>  
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>  
+                <prop key="date_format">yyyy-MM-dd</prop>
+            </props>  
+        </property>  
+    </bean>  
+</beans>
+        

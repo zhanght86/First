@@ -1,0 +1,11 @@
+jdbcUrl = jdbc:oracle:thin:@192.168.70.189:1521:orcl
+driverClass = oracle.jdbc.OracleDriver
+user = cf2g
+password = cf2g
+dialect=org.hibzzernate.dialect.Oracle10gDialect
+hibernate.hbm2ddl.auto=none
+hibernate.show_sql=true
+db.Type=${db.Type}
+generateDdl=${generateDdl}
+maximumConnectionCount=50
+minimumConnectionCount=10

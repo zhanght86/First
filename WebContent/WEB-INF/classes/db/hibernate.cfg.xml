@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	<!-- 1，数据库连接信息 -->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property> -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<!-- 2，其他配置 -->
+		<!-- <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property> -->
+		<property name="hibernate.show_sql">${hibernate.show_sql}</property>
+		<property name="hbm2ddl.auto">none</property>
+		<property name="hibernate.connection.SetBigStringTryClob">true</property>
+		<!-- 配置文件方式 -->
+     	<!-- <mapping resource="hello/product.hbm.xml"/> -->
+     	<!-- 注解方式 -->
+     	<!-- <mapping class="hello/Product" /> -->
+     	<!-- <mapping resource="com/sinosoft/entity/Contract.hbm.xml" /> -->
+     	<mapping class="com.sinosoft.entity.Contract" />
+     	<mapping class="com.sinosoft.entity.UploadFile" />
+     	<mapping class="com.sinosoft.entity.UserInfo" />
+     	<mapping class="com.sinosoft.entity.MenuInfo" />
+     	<mapping class="com.sinosoft.entity.RoleInfo" />
+     	<mapping class="com.sinosoft.entity.RoleMenu" />
+     	<mapping class="com.sinosoft.entity.UserRole" />
+     	<mapping class="com.sinosoft.entity.BranchInfo" />
+     	<mapping class="com.sinosoft.entity.BranchInfo" />
+     	<mapping class="com.sinosoft.entity.RowAddHistory"/>
+     	<mapping class="com.sinosoft.entity.CfCodeManage"/>
+     	<mapping class="com.sinosoft.entity.CfReportData"/>
+     	<mapping class="com.sinosoft.entity.CfReportDataCheck" />
+     	<mapping class="com.sinosoft.entity.CfReportDesc" />
+     	<mapping class="com.sinosoft.entity.CfReportErrInfo"/>
+     	<mapping class="com.sinosoft.entity.CfReportItemCodeDesc" />
+     	<mapping class="com.sinosoft.entity.OCfReportItemCodeDesc" />
+     	<mapping class="com.sinosoft.entity.CfReportItemRowCheck"/>
+     	<mapping class="com.sinosoft.entity.CfReportPeriodDataCheck"/>
+     	<mapping class="com.sinosoft.entity.CfReportRowAddData" />
+     	<mapping class="com.sinosoft.entity.CfReportRowAddDesc" />
+     	<mapping class="com.sinosoft.entity.OCfReportRowAddDesc" />
+     	<mapping class="com.sinosoft.entity.CfReportRowDataCheck"/>
+     	<mapping class="com.sinosoft.entity.CfUploadDocument" />  
+     	<mapping class="com.sinosoft.entity.ReportHistory" />	 
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_All" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_Deposit" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_Finance" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_Valuation" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_BondInfo" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_Fund" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_HS300Stock" />
+     	<mapping class="com.sinosoft.entity.Cux_Sino_Interface_Stock" />
+     	<mapping class="com.sinosoft.entity.ElementInfo" />
+     	<mapping class="com.sinosoft.entity.ContextTable" />
+     	<mapping class="com.sinosoft.entity.CfReportElement" />
+     	<mapping class="com.sinosoft.entity.Unit" />
+		<mapping class="com.sinosoft.entity.UserBranch" />
+		<mapping class="com.sinosoft.entity.CfRiskRatingCheck" /> <!-- 10号文件数据检验    add by liucw -->
+     	<mapping class="com.sinosoft.entity.CfRiskRatingErrInfo" /> <!-- 10号文件数据检验    add by liucw -->
+
+     	<mapping class="com.sinosoft.abc.entity.Finance_ABC" /> <!-- 农银接口表 -->
+     	<mapping class="com.sinosoft.abc.entity.Invest_ABC" /> <!-- 农银接口表 -->
+
+
+     	<mapping class="com.sinosoft.entity.CalCfReportRelation" />
+     	<mapping class="com.sinosoft.entity.CalCfReportInfo" />
+     	<mapping class="com.sinosoft.entity.Rf0Define" />
+     	<mapping class="com.sinosoft.entity.Kdefine" />
+     	<mapping class="com.sinosoft.entity.RhoMatrixDefine" />
+     	<mapping class="com.sinosoft.entity.Mcdefine" />
+		<mapping class="com.sinosoft.entity.Cfmap" />
+		<mapping class="com.sinosoft.entity.InterTabInvestInfo" />
+		<mapping class="com.sinosoft.entity.InterTabFinaInfo" />
+		<mapping class="com.sinosoft.entity.InterTabFinaEnValue" />
+		<mapping class="com.sinosoft.entity.InterTabFinaDateInfo" />
+		<mapping class="com.sinosoft.entity.CfReportRowAddDataRisk" />
+		<mapping class="com.sinosoft.entity.CfReportDataRisk" />
+		<mapping class="com.sinosoft.entity.CalRiskRelation" />
+		
+		<mapping class="com.sinosoft.entity.LaCalCfReportRelation"/><!-- 损失吸收效应 --> 
+        <mapping class="com.sinosoft.entity.LaCfReportData"/> 
+        <mapping class="com.sinosoft.entity.LaCfReportRowAddData"/> 
+        
+        <!-- 资产负债管理能力评估 -->
+        <mapping class="com.sinosoft.zcfz.entity.Alm_ItemDefine"/> 
+        <mapping class="com.sinosoft.zcfz.entity.Alm_ReportData"/>
+        <mapping class="com.sinosoft.zcfz.entity.Alm_SevBase"/> 
+        <mapping class="com.sinosoft.zcfz.entity.Alm_GatherInfo"/>
+        <mapping class="com.sinosoft.zcfz.entity.Alm_ComputeResult"/>
+        <mapping class="com.sinosoft.zcfz.entity.Alm_Result"/>
+        
+        <!-- 资产负债管理量化评估 -->
+        <mapping class="com.sinosoft.zcfz.entity.lianghua.ALM_CfReportData"/>      
+        <mapping class="com.sinosoft.zcfz.entity.lianghua.ALM_CfReportInfo"/>
+        <mapping class="com.sinosoft.zcfz.entity.lianghua.ALM_CfReportRowAddData"/> 
+	</session-factory>
+</hibernate-configuration>

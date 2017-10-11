@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app
+xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
+http://xmlns.oracle.com/weblogic/weblogic-web-app
+http://xmlns.oracle.com/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
+    <wls:container-descriptor>
+        <wls:prefer-application-packages>
+            <wls:package-name>javax.persistence.*</wls:package-name>
+            <wls:package-name>antlr.*</wls:package-name>
+            <wls:package-name>com.bea.xbean.*</wls:package-name>
+            <wls:package-name>com.bea.xml.*</wls:package-name>
+        </wls:prefer-application-packages>
+		<!-- 针对 Web应用程序范围内资源路径中发现的缓存资源执行元数据缓存
+		值 -1 表示元数据进行缓存，但从不对磁盘进行检查以便找出所做的更改。建议在生产环境中使用该值，以提升性能。
+		值 0 表示不执行元数据缓存。持续更改文件的客户必须将该参数设置为大于或等于 0的一个值。
+		值 1 表示每秒重新加载一次。该值为开发环境中的默认值。 -->
+		<wls:resource-reload-check-secs>0</wls:resource-reload-check-secs>
+    </wls:container-descriptor>
+	<wls:jsp-descriptor>
+		<!-- 设置 WebLogic Server检查 JSP文件的时间间隔（秒）
+		值 -1 表示永不检查页面。该值为生产环境中的默认值。
+		值 0 表示总是检查页面。
+		值 1 表示每秒检查一次页面。该值为开发环境中的默认值。 -->
+		<page-check-seconds>0</page-check-seconds>
+	</wls:jsp-descriptor>
+</wls:weblogic-web-app>

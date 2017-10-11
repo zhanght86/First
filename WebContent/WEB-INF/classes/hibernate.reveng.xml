@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="CHAR" hibernate-type="string" length="1"
+			not-null="true" />
+		<sql-type jdbc-type="CHAR" hibernate-type="string" length="1"
+			not-null="false" />
+		<sql-type jdbc-type="INTEGER" hibernate-type="integer"
+			not-null="true" />
+		<sql-type jdbc-type="TINYINT" hibernate-type="java.lang.Boolean"
+			not-null="true" />
+		<sql-type jdbc-type="TINYINT" hibernate-type="java.lang.Boolean"
+			not-null="false" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="integer"
+			precision="22" not-null="true" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="integer"
+			precision="22" not-null="false" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="long"
+			precision="19" not-null="true" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="long"
+			precision="19" not-null="false" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="long"
+			precision="20" not-null="true" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="long"
+			precision="20" not-null="false" />
+		<sql-type jdbc-type="TIMESTAMP" hibernate-type="date"
+			not-null="false" />
+	</type-mapping>
+
+	<table-filter match-name="CfCodeManage"></table-filter>
+	<table-filter match-name="CfReportData"></table-filter>
+	<table-filter match-name="CfReportDataCheck"></table-filter>
+	<table-filter match-name="CfReportDesc"></table-filter>
+	<table-filter match-name="CfReportErrInfo"></table-filter>
+	<table-filter match-name="CfReportItemCodeDesc"></table-filter>
+	<table-filter match-name="CfReportItemRowCheck"></table-filter>
+	<table-filter match-name="CfReportPeriodDataCheck"></table-filter>
+	<table-filter match-name="CfReportRowAddData"></table-filter>
+	<table-filter match-name="CfReportRowAddDesc"></table-filter>
+	<table-filter match-name="CfReportRowDataCheck"></table-filter>
+	<table-filter match-name="CfUploadDocument"></table-filter>
+</hibernate-reverse-engineering>
