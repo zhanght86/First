@@ -269,7 +269,7 @@ public class BaseDAO<T>  extends NamedParameterJdbcDaoSupport implements Dao {
 		    pagesql.append(") row_ where rownum<="+(start+rows)+") t where rownum_>"+start+"");
 		 }
 		else{
-		 pagesql.append(") t  limit "+start+","+rows+"");
+		 pagesql.append(") t  limit "+rows+" offset "+start+"");
 		}
 		 totalsql.append(") t");
 		 System.out.println(totalsql.toString());
@@ -306,7 +306,7 @@ public class BaseDAO<T>  extends NamedParameterJdbcDaoSupport implements Dao {
 		    pagesql.append(") row_ where rownum<="+(start+rows)+") t where rownum_>"+start+"");
 		 }
 		else{
-		 pagesql.append(") t  limit "+start+","+rows+"");
+		 pagesql.append(") t  limit "+rows+" offset "+start+"");
 		}
 		 totalsql.append(") t");
 		 System.out.println(totalsql.toString());
