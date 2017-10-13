@@ -38,7 +38,7 @@ public class ABC_DockedDao extends BaseAbstractDao{
 		return true;
 	}
 	public List<Map> getSubjectCR19Count(String year, String quarter) {
-		String sql = "select  nvl(count(sum(closingBalance)),0) as count from abc_finance  "
+		String sql = "select  ifnull(count(sum(closingBalance)),0) as count from abc_finance  "
 				+ "where  subjectSegment in  ('1221001001','1221002001','1221003001','1221004001','1221005001','1221006001'"
 				+ ",'1221007001','1221008001','1221009001','1221010001','1221011001','1221012001','1221013001','1221099001') "
 				+ "and year='"+ year +"' and quarter='"+quarter +"' "
@@ -48,7 +48,7 @@ public class ABC_DockedDao extends BaseAbstractDao{
 	}
 	
 	public List<Map>  getSubjectCR19Sum(String year, String quarter) {
-		String sql = "select  nvl(sum(closingBalance),0) as value, details from abc_finance  "
+		String sql = "select  ifnull(sum(closingBalance),0) as value, details from abc_finance  "
 				+ "where  subjectSegment in  ('1221001001','1221002001','1221003001','1221004001','1221005001','1221006001'"
 				+ ",'1221007001','1221008001','1221009001','1221010001','1221011001','1221012001','1221013001','1221099001') "
 				+ "and year='"+ year +"' and quarter='"+quarter +"' "

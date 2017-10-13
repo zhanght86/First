@@ -1558,7 +1558,7 @@ public class ExportXBRLServiceImp implements ExportXbrlService{
 			" AND CF.QUARTER = '" + this.Quarter  + "' " + 
 			" AND CF.REPORTRATE = '" + this.CfReportRate + "' " +
 			" and cf.reportId='"+this.reportId+"'"+
-			" AND (nvl(CF.NUMVALUE, 0.00) <> 0.00 OR nvl(CF.WANVALUE, 0.00) <> 0.00 OR CF.TEXTVALUE IS NOT NULL OR CF.DESTEXT IS NOT NULL) " + 
+			" AND (ifnull(CF.NUMVALUE, 0.00) <> 0.00 OR ifnull(CF.WANVALUE, 0.00) <> 0.00 OR CF.TEXTVALUE IS NOT NULL OR CF.DESTEXT IS NOT NULL) " + 
 			" ORDER BY to_number(RowNo) ASC ";
 		}else{
 			System.out.println("系统使用数据库类型获取失败！");

@@ -1339,7 +1339,7 @@ public class CfWordCreateServiceImp implements CfWordCreateService{
 					+ " AND CF.REPORTRATE = '"
 					+ cfWordCreateDto.getmCfReportRate()
 					+ "' "
-					+ " AND (nvl(CF.NUMVALUE, 0.00) <> 0.00 OR nvl(CF.WANVALUE, 0.00) <> 0.00 OR CF.TEXTVALUE IS NOT NULL OR CF.DESTEXT IS NOT NULL) "
+					+ " AND (ifnull(CF.NUMVALUE, 0.00) <> 0.00 OR ifnull(CF.WANVALUE, 0.00) <> 0.00 OR CF.TEXTVALUE IS NOT NULL OR CF.DESTEXT IS NOT NULL) "
 					+ " ORDER BY to_number(RowNo) ASC ";
 		
 			System.out.println("row----------------------------"+strSQL);

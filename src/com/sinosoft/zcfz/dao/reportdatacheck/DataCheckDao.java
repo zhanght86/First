@@ -261,7 +261,7 @@ public class DataCheckDao extends BaseAbstractDao {
 		public List<?> getRiskRatingDataByDecimals(String reportRate, String yearMonth, String quarter, String comCode) {
 			String sql="";
 			
-				 sql = "select cf1.outitemcode as outitemcode,round(cf1.reportitemvalue,nvl(cf2.decimals,0)) as reportitemvalue  ,nvl(cf2.decimals,0) as decimals  from CfReportData cf1 ,cfreportelement cf2 "
+				 sql = "select cf1.outitemcode as outitemcode,round(cf1.reportitemvalue,ifnull(cf2.decimals,0)) as reportitemvalue  ,ifnull(cf2.decimals,0) as decimals  from CfReportData cf1 ,cfreportelement cf2 "
 				 		+ " where cf1.outitemcode=cf2.portitemcode and cf1.reportRate='" + reportRate + "' and cf1.month='" + yearMonth 
 						+ "' and cf1.quarter='" + quarter + "' and cf1.comCode='" + comCode + "' and cf1.reportItemValue is not null";
 			System.out.println("sql--->"+sql);

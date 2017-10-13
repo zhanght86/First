@@ -209,8 +209,8 @@ public class ReportDataAnalyse {
 					List<Map> listResult = (List<Map>) dao.getList(sql);
 					
 					String sql2= " select round(( ( b.reportitemvalue + a.reportitemvalue)/(select reportitemvalue from cfreportdata where outitemcode='S07_00033' and quarter='"+quarters+"' and month='"+month+"') ) *100,1) as value , '保险风险' as outitemcode from "
-							+ "(select nvl(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00002' and quarter='"+quarters+"' and month='"+month+"' ) a,"
-							+ "(select nvl(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00007' and quarter='"+quarters+"' and month='"+month+"') b ";
+							+ "(select ifnull(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00002' and quarter='"+quarters+"' and month='"+month+"' ) a,"
+							+ "(select ifnull(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00007' and quarter='"+quarters+"' and month='"+month+"') b ";
 					List<Map> listResult1 = (List<Map>) dao.getList(sql2);
 					listResult.add(0,listResult1.get(0));
 					
