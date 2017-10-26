@@ -75,7 +75,7 @@ public class CodeSelectController {
 		}else if("cfreportdata".equals(type)){
 			sql="select distinct outitemcode as value,outitemcodename as text from cfReportData";
 		}else if("reportdataanalyse".equals(type)){
-			sql="select distinct reportitemcode as value,concat(outitemcode,concat('--',reportitemname)) as text from alm_cfreportitemcodedesc order by reportitemcode";
+			sql="select distinct reportitemcode as value,concat(outitemcode,concat('--',reportitemname)) as text from alm_cfreportitemcodedesc where reportitemcode like '%ALM_PJZB%' and sheetcol = '7' order by reportitemcode";
 		}else if("reportdataanalyse1".equals(type)){
 			sql="select distinct month as value,month as text,substr(month,0,4) team from cfReportData ";
 		}else if("datacheck".equals(type)){ 
@@ -134,6 +134,8 @@ public class CodeSelectController {
 			sql="select codecode as value,codename as text from cfcodemanage where codetype='EvaluateResult'";
 		}else if("EvaluateResult2".equals(type)){//资产负债管理能力评估评估项目
 			sql="select codecode as value,codename as text from cfcodemanage where codetype='EvaluateResult' and codecode in ('1','4') ";
+		}else if("quarter".equals(type)){
+			sql="select codecode as value,codename as text from cfcodemanage where upper(codetype)= upper('" + type + "') order by to_number(value)";
 		}
 		try{
 			result=codeSeleceDao.query(sql);
@@ -151,6 +153,8 @@ public class CodeSelectController {
 			sql="select month as value,month as text,substr(month,0,4) team from cfReportData where outitemcode='"+params+"'";
 		}else if("reportdataanalyse".equals(type)){
 			sql="select distinct month as value,month as text,substr(month,0,4) team from alm_cfreportdata where outitemcode in ("+params+") order by team";
+		}else if("dataanalyse".equals(type)){
+			sql="select distinct month as value,month as text,substr(month,0,4) team from alm_cfreportdata order by team";
 		}else if("reportdataanalyse1".equals(type)){
 			sql="select distinct outitemcode as value,concat(outitemcode,concat('--', outitemcodename)) as text from cfreportdata where month='"+params + "'and outitemcode like 'S01%' or outitemcode like'S07%' order by outitemcode";
 		}else if("reportname".equals(type)){

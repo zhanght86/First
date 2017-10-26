@@ -1,6 +1,7 @@
 package com.sinosoft.controller.zcfz.reportDataAnalyse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -209,8 +210,8 @@ public class ReportDataAnalyse {
 					List<Map> listResult = (List<Map>) dao.getList(sql);
 					
 					String sql2= " select round(( ( b.reportitemvalue + a.reportitemvalue)/(select reportitemvalue from cfreportdata where outitemcode='S07_00033' and quarter='"+quarters+"' and month='"+month+"') ) *100,1) as value , '保险风险' as outitemcode from "
-							+ "(select ifnull(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00002' and quarter='"+quarters+"' and month='"+month+"' ) a,"
-							+ "(select ifnull(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00007' and quarter='"+quarters+"' and month='"+month+"') b ";
+							+ "(select nvl(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00002' and quarter='"+quarters+"' and month='"+month+"' ) a,"
+							+ "(select nvl(reportitemvalue ,0) reportitemvalue from CfReportData where outItemCode = 'S07_00007' and quarter='"+quarters+"' and month='"+month+"') b ";
 					List<Map> listResult1 = (List<Map>) dao.getList(sql2);
 					listResult.add(0,listResult1.get(0));
 					
@@ -245,7 +246,66 @@ public class ReportDataAnalyse {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/evalFactorData", method = RequestMethod.POST)
+	@ResponseBody
+	public List<?> evalFactorData(@RequestParam String month,@RequestParam String quarter){
+		try{
+			//根据month、quarter得到要打印的数据
+			String[] yearquarter = new String[8];
+			String mon = month;
+			String quar = quarter;
+			for(int i = yearquarter.length - 1; i >= 0; i--){
+				if(!quar.equals("1")){
+					yearquarter[i] = mon + "Q" + quar;
+					quar = Integer.parseInt(quar)-1 + "";
+				}else{
+					yearquarter[i] = mon + "Q" + quar;
+					quar = "4";
+					mon = Integer.parseInt(mon)-1 + "";
+				}
+			}
+			
+			System.out.println(Arrays.toString(yearquarter));
+			List list = new ArrayList();
+			
+			//1、获取评价指标
+			String sql = "select t.reportitemcode, t.reportitemname from alm_cfreportitemcodedesc t where t.reportitemcode like 'ALM_PJZB%' and t.sheetcol = '7'";
+			List<Map> evalFactors = (List<Map>) dao.getList(sql);
+			//2、遍历评价指标获取8期数据
+			if(evalFactors != null && !evalFactors.isEmpty()){
+				List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+				StringBuffer sb = new StringBuffer();
+				for (Map map : evalFactors) {
+					sb.append("select t.yearquarter \"name\", t.reportitemvalue \"y\" from (select outitemcode, outitemcodename, reportitemvalue,month, quarter, month || 'Q' || quarter as yearquarter "
+							+ "from alm_cfreportdata) t where t.yearquarter in (");
+					for(int i = 0; i < yearquarter.length; i++){
+						if(i != yearquarter.length -1){
+							sb.append("'" + yearquarter[i] + "',");
+						}else{
+							sb.append("'" + yearquarter[i] + "'");
+						}
+					}
+					sb.append(") and t.outitemcode = '" + map.get("reportitemcode") + "'");
+					
+					List<Map> _result = (List<Map>) dao.getList(sb.toString());
+					
+					Map<String, Object> _map = new HashMap<String, Object>();
+					String[] _name = map.get("reportitemname").toString().split("_");
+					_map.put("name", _name[_name.length - 2]);
+					_map.put("data", _result);
+					result.add(_map);
+					sb.setLength(0);
+				}
+				System.out.println(result);
+				return result;
+			}
+				
+			return new ArrayList<Map<String, Object>>();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	
 	
